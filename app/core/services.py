@@ -171,3 +171,20 @@ class WorkoutService:
             }
             for r in rows
         ]
+        
+    def list_workouts_for_week(self, week: int) -> list[tuple[int, str]]:
+        """
+        Returns list of (day, workout_name) for the given week, ordered by day.
+        """
+        with connect(self.db_path) as conn:
+            rows = conn.execute(
+                """
+                SELECT day, workout_name
+                FROM program_workout
+                WHERE week = ?
+                ORDER BY day ASC
+                """,
+                (int(week),),
+            ).fetchall()
+
+        return [(int(r["day"]), str(r["workout_name"])) for r in rows]

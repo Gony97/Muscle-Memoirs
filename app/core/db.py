@@ -79,3 +79,9 @@ def init_db(db_path: str | Path) -> None:
     with connect(db_path) as conn:
         conn.executescript(SCHEMA_SQL)
         conn.commit()
+        
+def reset_db(db_path: str | Path) -> None:
+    db_path = Path(db_path)
+    if db_path.exists():
+        db_path.unlink()
+    init_db(db_path)

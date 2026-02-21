@@ -259,7 +259,7 @@
             "exercises": [
                 {"name":"X Pulldown","sets":4,"reps":12,"notes":""},
                 {"name":"Underhand Barbell Row","sets":3,"reps":10,"notes":""},
-                {"name":"Push Ups","sets":3,"reps":[10,8,8],"notes":""},
+                {"name":"Push Ups","sets":3,"reps":8,"notes":""},
                 {"name":"Rear Delt Pull on Incline Bench","sets":3,"reps":10,"notes":""},
                 {"name":"Overhead Press","sets":3,"reps":12,"notes":""},
                 {"name":"Stability Ball/TRX Tucks","sets":3,"reps":12,"notes":""},
@@ -356,7 +356,7 @@
             "day": 2,
             "name": "Upper Body",
             "exercises": [
-                {"name":"Seated Pull-Ups","sets":3,"reps":[12,10,8],"notes":""},
+                {"name":"Pull-Ups","sets":3,"reps":8,"notes":""},
                 {"name":"Top Down Gorilla Row","sets":3,"reps":12,"notes":""},
                 {"name":"Bottoms Up Press: Left/Right","sets":4,"reps":10,"notes":""},
                 {"name":"Unilateral Incline Chest Press: Left/Right","sets":4,"reps":12,"notes":""},
@@ -491,8 +491,8 @@
                 {"name": "Deadlifts: 50% (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
                 {"name": "Deadlifts: 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": ""},
                 {"name": "Deadlifts", "sets": 3, "reps": 6, "notes": ""},
-                {"name":"Pull-Ups","sets":3,"reps":[7,5,5],"notes":""},
-                {"name":"Push Ups","sets":3,"reps":[10,8,8],"notes":""},
+                {"name":"Pull-Ups","sets":3,"reps":7,"notes":""},
+                {"name":"Push Ups","sets":3,"reps":10,"notes":""},
                 {"name":"Drop Squat to Extension","sets":3,"reps":10,"notes":""},
                 {"name":"DB Snatch","sets":4,"reps":12,"notes":""},
                 {"name":"Landmine Thruster","sets":3,"reps":16,"notes":""},

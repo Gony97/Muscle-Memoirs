@@ -5,13 +5,18 @@ from app.core.import_program import import_program
 from app.core.services import WorkoutService
 from app.core.suggestions import suggest_weight
 
+from app.core.db import reset_db
 
 def main() -> None:
     root = Path(__file__).parent
     db_path = root / "data" / "fworkout.db"
     program_path = root / "program.json"
+    
+    print("DB PATH =", db_path.resolve())
+    print("DB EXISTS BEFORE =", db_path.exists())   
 
-    init_db(db_path)
+    # init_db(db_path)
+    reset_db(db_path)
     import_program(db_path, program_path)
 
     service = WorkoutService(db_path)
