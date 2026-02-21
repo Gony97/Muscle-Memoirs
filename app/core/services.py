@@ -289,3 +289,64 @@ class WorkoutService:
             ).fetchall()
 
         return [str(r["exercise_name"]) for r in rows]
+    
+    def get_current_week(self) -> int:
+        """
+        Default week to show in the app.
+        Rule: if you have sessions -> use the latest session's week.
+              else -> week 1.
+        """
+        with connect(self.db_path) as conn:
+            row = conn.execute(
+                """
+                SELECT week
+                FROM session
+                ORDER BY started_at DESC
+                LIMIT 1
+                """
+            ).fetchone()
+
+        if row is None:
+            return 1
+        return int(row["week"])
+    
+    def get_completed_days_for_week(self, week: int) -> set[int]:
+        """
+        A day is considered 'completed' if there exists at least one set_log
+        for any session in that (week, day).
+        """
+        with connect(self.db_path) as conn:
+            rows = conn.execute(
+                """
+                SELECT DISTINCT s.day
+                FROM session s
+                JOIN set_log sl ON sl.session_id = s.id
+                WHERE s.week = ?
+                """,
+                (int(week),),
+            ).fetchall()
+
+        return {int(r["day"]) for r in rows}
+    
+    def is_week_completed(self, week: int) -> bool:
+        """
+        Week is completed if ALL workout days defined for that week
+        have at least one logged set.
+        """
+        workouts = self.list_workouts_for_week(week)  # [(day, name), ...]
+        required_days = {day for day, _name in workouts}
+        if not required_days:
+            return False
+
+        completed_days = self.get_completed_days_for_week(week)
+        return required_days.issubset(completed_days)
+
+    def get_current_week(self) -> int:
+        """
+        Returns the first week (1..12) that is NOT completed yet.
+        If all weeks are completed, return 12.
+        """
+        for w in range(1, 13):
+            if not self.is_week_completed(w):
+                return w
+        return 12
