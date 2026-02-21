@@ -1,0 +1,585 @@
+{
+  "program_name": "12 Week Program",
+  "units": "kg",
+  "weeks": [
+    {
+      "week": 1,
+      "workouts": [
+        {
+          "day": 1,
+          "name": "Strength & Power",
+          "exercises": [
+            { "name": "Squats - Barbell Only (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+            { "name": "Squats - 50% (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+            { "name": "Squats - 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": "" },
+            { "name": "Squats", "sets": 3, "reps": 6, "notes": "" },
+            { "name": "Tempo Leg Press", "sets": 3, "reps": 8, "notes": "" },
+            {"name": "DB Clean to Press", "sets": 3, "reps": 8, "notes": ""},
+            {"name": "KB Swings", "sets": 3, "reps": 8, "notes": ""},
+            {"name": "Single Arm Cable Chainsaw Row: Left/Right", "sets": 4, "reps":10, "notes": ""},
+            {"name": "Plate Snatch", "sets": 4, "reps": 10, "notes": ""},
+            {"name": "Tempo Chest Press", "sets": 4, "reps":12, "notes": ""}
+          ]
+        },
+        {
+          "day": 2,
+          "name": "Upper Body",
+          "exercises": [
+            { "name": "Top Down Gorilla Row", "sets": 3, "reps": 12, "notes": "" },
+            { "name": "Plate Curl to Overhead Press", "sets": 10, "reps": 10, "notes": "" },
+            { "name": "Kayak Lat Pulldown", "sets": 3, "reps": 14, "notes": "" },
+            { "name": "Incline Press", "sets": 3, "reps": 8, "notes": "" },
+            { "name": "Half Kneeling Alternating KB Press", "sets": 4, "reps": 14, "notes": "" },
+            { "name": "DB Lateral Raises", "sets": 3, "reps": 10, "notes": "" }
+          ]
+        },
+        {
+          "day": 3,
+          "name": "Lower Body",
+          "exercises": [
+            { "name": "Suitcase/Front Rack Walking Lunges", "sets": 2, "reps": 16, "notes": "" },
+            { "name": "1.5 Rep Reverse Lunges: Left/Right", "sets": 4, "reps": 8, "notes": "" },
+            { "name": "Cable Front Squat", "sets": 3, "reps": 12, "notes": "" },
+            { "name": "Cable Pull Throughts", "sets": 3, "reps": 14, "notes": "" },
+            { "name": "Tempo Hip Thrusts", "sets": 4, "reps": 12, "notes": "" },
+            { "name": "Leg Extension", "sets": 3, "reps": 12, "notes": "" },
+            { "name": "Single Arm DB Deadlifts: Left/Right", "sets": 4, "reps": 12, "notes": "" },
+            { "name": "Calf Raises on Leg Press", "sets": 3, "reps": 10, "notes": "" }
+          ]
+        }
+      ]
+    },
+    {
+        "week": 2,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                {"name": "Deadlifts: Barbell Only (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 50% (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": ""},
+                {"name": "Deadlifts", "sets": 3, "reps": 6, "notes": ""},
+                {"name": "Cable Deadlift to Row", "sets": 3, "reps": 14, "notes": ""},
+                {"name": "Push Press", "sets": 3, "reps": 6, "notes": ""},
+                {"name": "Tempo Leg Press", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "Inverted Row", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "Unilateral Incline Chest Press", "sets": 4, "reps": 8, "notes": ""}
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name": "Barbell Rows", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "Kayak Lat Pulldown", "sets": 3, "reps": 16, "notes": ""},
+                {"name": "Plate Curl to Overhead Press", "sets": 4, "reps": 10, "notes": ""},
+                {"name": "KB Halos", "sets": 3, "reps": 10, "notes": ""},
+                {"name": "Push Ups", "sets": 3, "reps": 10, "notes": ""},
+                {"name": "Tricep Pushdowns", "sets": 3, "reps": 12, "notes": ""},
+                {"name": "Half Kneeling Inline Lift: Left/Right", "sets": 4, "reps": 12, "notes": ""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name": "Squats - Barbell Only (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Squats - 50% (Warm-Up)", "sets": 1, "reps": 6, "notes": ""},
+                {"name": "Squats - 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": ""},
+                {"name": "Squats", "sets": 4, "reps": 8, "notes": ""},
+                {"name": "Suitcase/Front Rack Walking Lunges", "sets": 4, "reps": 16, "notes": ""},
+                {"name": "Tempo Hip Thrusts", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "Hip Abduction & Adduction", "sets": 4, "reps": 12, "notes": ""},
+                {"name": "Dual KB Deficit Deadlifts", "sets": 3, "reps": 10, "notes": ""},
+                {"name": "Calf Raises on Leg Press", "sets": 3, "reps": 16, "notes": ""},
+                {"name": "", "sets": 3, "reps": 10, "notes": ""}
+            ]
+        }
+      ]
+    },
+    {
+        "week": 3,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                {"name": "Squats - Barbell Only (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Squats - 50% (Warm-Up)", "sets": 1, "reps": 6, "notes": ""},
+                {"name": "Squats - 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": ""},
+                {"name": "Squats", "sets": 3, "reps": 6, "notes": ""},
+                {"name": "Tempo Hip Thrusts", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "Single Leg Plyo Hip Thrust", "sets": 4, "reps": 6, "notes": ""},
+                {"name": "Push Ups", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "DB Snatch", "sets": 4, "reps": 8, "notes": ""}
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name": "Close Grip Lat Pulldown", "sets": 4, "reps": 8, "notes": ""},
+                {"name": "Plate Row to Goodmoring", "sets": 3, "reps": 14, "notes": ""},
+                {"name": "Chest Press", "sets": 3, "reps": 10, "notes": ""},
+                {"name": "Seated Arnold Press", "sets": 3, "reps":210, "notes": ""},
+                {"name": "DB Lateral Raises", "sets": 3, "reps": 12, "notes": ""},
+                {"name": "Front Raise to Tricep Extension", "sets": 3, "reps": 10, "notes": ""},
+                {"name": "Cable Crunches", "sets": 4, "reps": 10, "notes": ""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name": "Asymmetric Front Rack Walking Lunges", "sets": 4, "reps": 16, "notes": ""},
+                {"name": "KB Front Rack Kneel to Squat", "sets": 3, "reps": 12, "notes": ""},
+                {"name": "Leg Press: Wide Stance", "sets": 2, "reps": 8, "notes": ""},
+                {"name": "Alternating Single Leg Press", "sets": 3, "reps": 14, "notes": ""},
+                {"name": "Cable Pull Throughts", "sets": 3, "reps": 14, "notes": ""},
+                {"name": "Glute Kickbacks: Left/Right", "sets": 4, "reps": 12, "notes": ""},
+                {"name": "Single Arm DB Deadlifts: Left/Right", "sets": 4, "reps": 10, "notes": ""}
+            ]
+        }
+      ]
+    },
+    {
+        "week": 4,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                {"name": "Deadlifts: Barbell Only (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 50% (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": ""},
+                {"name": "Deadlifts", "sets": 3, "reps": 6, "notes": ""},
+                {"name": "Single Arm DB Clean: Left/Right", "sets":4, "reps": 8, "notes": ""},
+                {"name": "Pull Ups", "sets": 3, "reps": 6, "notes": ""},
+                {"name": "Leg Press", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "Single Arm Rotational Row: Left/Right", "sets": 4, "reps": 10, "notes": ""},
+                {"name": "Tempo Chest Press", "sets": 4, "reps": 12, "notes": ""}
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name": "Kayak Lat Pulldown", "sets": 3, "reps": 12, "notes": ""},
+                {"name": "Push Ups", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "Chest Press", "sets": 3, "reps": 12, "notes": ""},
+                {"name": "Cable Flyes", "sets": 3, "reps": 10, "notes": ""},
+                {"name": "Cable Rear Delt Fly", "sets": 4, "reps": 12, "notes": ""},
+                {"name": "Hanging Knee Tucks", "sets": 3, "reps": 12, "notes": ""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name":"Asymmetric Overhead Walking Lunges","sets":4,"reps":16,"notes":""},
+                {"name":"Tempo Hip Thrusts","sets":3,"reps":14,"notes":""},
+                {"name":"Goblet Squat to Calf Raise","sets":3,"reps":12,"notes":""},
+                {"name":"Hip Abduction & Adduction","sets":4,"reps":14,"notes":""},
+                {"name":"Dual KB Deficit Deadlifts","sets":3,"reps":10,"notes":""},
+                {"name":"Front Elevated Lunges to Knee Drive (Left/Right)","sets":4,"reps":8,"notes":""},
+                {"name":"Calf Raises on Leg Press","sets":3,"reps":12,"notes":""}
+            ]
+        }
+      ]
+    },
+    {
+        "week": 5,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                {"name":"Squats: Barbell Only (Warm-Up)","sets":1,"reps":8,"notes":""},
+                {"name":"Squats: 50% (Warm-Up)","sets":2,"reps":6,"notes":""},
+                {"name":"Tempo Squats","sets":4,"reps":6,"notes":""},
+                {"name":"Box Jumps","sets":3,"reps":8,"notes":""},
+                {"name":"Rack Pulls: Barbell Only (Warm-Up)","sets":1,"reps":8,"notes":""},
+                {"name":"Rack Pulls: 50% (Warm-Up)","sets":1,"reps":8,"notes":""},
+                {"name":"Rack Pulls: 80% (Warm-Up)","sets":1,"reps":4,"notes":""},
+                {"name":"Rack Pulls","sets":3,"reps":6,"notes":""},
+                {"name": "Cross Body Clean", "sets": 4, "reps": 8, "notes": ""},
+                {"name":"Pull Ups", "sets": 3, "reps": 6, "notes": ""},
+                {"name": "Plate Snatch", "sets": 3, "reps": 10, "notes": ""}
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name":"Bench Press","sets":3,"reps":8,"notes":""},
+                {"name":"Top Down Gorilla Row","sets":3,"reps":14,"notes":""},
+                {"name":"Dips","sets":3,"reps":7,"notes":""},
+                {"name":"Straight Arm Lat Pulldown","sets":4,"reps":12,"notes":""},
+                {"name":"Cable Hammer Curls","sets":3,"reps":15,"notes":""},
+                {"name":"Front/Lateral Combo Raise","sets":3,"reps":12,"notes":""},
+                {"name":"Hanging Weighted Knee Tucks","sets":4,"reps":10,"notes":""},
+                {"name":"Cable Crunches","sets":4,"reps":10,"notes":""}
+                ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name":"Open Leg Lunges","sets":3,"reps":16,"notes":""},
+                {"name":"Asymmetric Overhead DB Squat","sets":4,"reps":12,"notes":""},
+                {"name":"Romanian Deadlifts","sets":3,"reps":14,"notes":""},
+                {"name":"Double KB Swings","sets":3,"reps":12,"notes":""},
+                {"name":"1.5 Rep Hip Thrusts","sets":4,"reps":8,"notes":""},
+                {"name":"Alternating Single Leg Press","sets":3,"reps":16,"notes":""},
+                {"name":"Glute Kickback: Left/Right","sets":4,"reps":12,"notes":""}
+                ]
+        }
+      ]
+    },
+    {
+        "week": 6,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                {"name":"Bench Press","sets":3,"reps":6,"notes":""},
+                {"name":"Push Press","sets":3,"reps":8,"notes":""},
+                {"name":"Extended Ball Slams","sets":3,"reps":14,"notes":""},
+                {"name":"Ring/TRX One Arm Row Reaches: Left/Right","sets":4,"reps":8,"notes":""},
+                {"name":"Tempo Hip Thrusts","sets":3,"reps":10,"notes":""},
+                {"name":"Single Leg Plyo Hip Thrusts: Left/Right","sets":4,"reps":7,"notes":""},
+                {"name":"Pause Squat Jumps","sets":3,"reps":10,"notes":""}
+                ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name":"X Pulldown","sets":4,"reps":12,"notes":""},
+                {"name":"Underhand Barbell Row","sets":3,"reps":10,"notes":""},
+                {"name":"Push Ups","sets":3,"reps":[10,8,8],"notes":""},
+                {"name":"Rear Delt Pull on Incline Bench","sets":3,"reps":10,"notes":""},
+                {"name":"Overhead Press","sets":3,"reps":12,"notes":""},
+                {"name":"Stability Ball/TRX Tucks","sets":3,"reps":12,"notes":""},
+                {"name":"Bosu Ball Cable Crunch","sets":3,"reps":10,"notes":""},
+                {"name":"Alternating Supinating Bicep Curls","sets":3,"reps":16,"notes":""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name":"Squats","sets":3,"reps":10,"notes":""},
+                {"name":"Alternating Front Rack Reverse Lunges","sets":3,"reps":14,"notes":""},
+                {"name":"Landmine Deadlift","sets":3,"reps":10,"notes":""},
+                {"name":"Step Up to Knee Drive: Left/Right","sets":4,"reps":10,"notes":""},
+                {"name":"Paused Hip Thrusts","sets":4,"reps":12,"notes":""},
+                {"name":"TRX/Ball Hamstring Curls","sets":3,"reps":8,"notes":""},
+                {"name":"Calf Raises on Leg Press","sets":4,"reps":15,"notes":""}
+            ]
+        }
+      ]
+    },
+    {
+        "week": 7,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                {"name": "Deadlifts: Barbell Only (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 50% (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": ""},
+                {"name": "Deadlifts", "sets": 3, "reps": 6, "notes": ""},
+                { "name": "Squats - Barbell Only (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 50% (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": "" },
+                { "name": "Squats", "sets": 3, "reps": 6, "notes": "" },
+                {"name": "Barbell Cleans", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "Unilateral Snatch to Lunch: Left/Right", "sets": 4, "reps": 10, "notes": ""},
+                {"name": "Pull Ups", "sets": 3, "reps": 8, "notes": ""},
+                {"name": "Inverted Row", "sets": 3, "reps": 10, "notes": ""}
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name":"Bench Press","sets":3,"reps":8,"notes":""},
+                {"name":"Landmine Rotations","sets":3,"reps":12,"notes":""},
+                {"name":"T-Bar Row","sets":3,"reps":10,"notes":""},
+                {"name":"Plate Curl to Overhead Press","sets":4,"reps":10,"notes":""},
+                {"name":"Lat Pulldown","sets":3,"reps":10,"notes":""},
+                {"name":"Tricep Pushdowns","sets":3,"reps":10,"notes":""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name":"1.5 Rep Squats","sets":3,"reps":8,"notes":""},
+                {"name":"Alternating Front Rack Curtsey Lunges","sets":3,"reps":12,"notes":""},
+                {"name":"Double KB Swings","sets":3,"reps":10,"notes":""},
+                {"name":"DB Handover Side Lunges","sets":3,"reps":14,"notes":""},
+                {"name":"Banded Hip Thrusts","sets":4,"reps":12,"notes":""},
+                {"name":"Weighted Skaters","sets":3,"reps":14,"notes":""},
+                {"name":"Calf Raises on Leg Press","sets":3,"reps":10,"notes":""}
+            ]
+        }
+      ]
+    },
+    {
+        "week": 8,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                { "name": "Squats - Barbell Only (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 50% (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": "" },
+                { "name": "Squats", "sets": 3, "reps": 8, "notes": "" },
+                {"name":"Rack Pulls: Barbell Only (Warm-Up)","sets":1,"reps":8,"notes":""},
+                {"name":"Rack Pulls: 50% (Warm-Up)","sets":1,"reps":8,"notes":""},
+                {"name":"Rack Pulls: 80% (Warm-Up)","sets":1,"reps":4,"notes":""},
+                {"name":"Rack Pulls","sets":3,"reps":6,"notes":""},
+                {"name":"Box Jumps","sets":3,"reps":10,"notes":""},
+                {"name":"Chin Ups","sets":3,"reps":6,"notes":""},
+                {"name":"Assisted Plyo Push Ups","sets":3,"reps":8,"notes":""},
+                {"name":"DB Clean to Press","sets":3,"reps":10,"notes":""},
+                {"name":"Single Arm Rotational Row: Left/Right","sets":4,"reps":10,"notes":""}
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name":"Seated Pull-Ups","sets":3,"reps":[12,10,8],"notes":""},
+                {"name":"Top Down Gorilla Row","sets":3,"reps":12,"notes":""},
+                {"name":"Bottoms Up Press: Left/Right","sets":4,"reps":10,"notes":""},
+                {"name":"Unilateral Incline Chest Press: Left/Right","sets":4,"reps":12,"notes":""},
+                {"name":"Front/Lateral Combo Raise","sets":3,"reps":14,"notes":""},
+                {"name":"Skull Crushers","sets":3,"reps":8,"notes":""},
+                {"name":"Woodchoppers","sets":4,"reps":10,"notes":""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name":"Open Leg Lunges","sets":4,"reps":14,"notes":""},
+                {"name":"Landmine Squat Shifts","sets":3,"reps":12,"notes":""},
+                {"name":"Landmine Single Leg Deadlift: Left/Right","sets":4,"reps":12,"notes":""},
+                {"name":"Banded Hip Thrusts","sets":4,"reps":10,"notes":""},
+                {"name":"Leg Press: Wide Stance","sets":3,"reps":15,"notes":""},
+                {"name":"Calf Raises on Leg Press","sets":3,"reps":20,"notes":""}
+            ]
+        }
+      ]
+    },
+    {
+        "week": 9,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                {"name": "Deadlifts: Barbell Only (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 50% (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": ""},
+                {"name": "Deadlifts", "sets": 3, "reps": 6, "notes": ""},
+                { "name": "Squats - Barbell Only (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 50% (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": "" },
+                { "name": "Squats", "sets": 3, "reps": 6, "notes": "" },
+                {"name": "Tempo Hip Thrusts", "sets": 3, "reps": 12, "notes": ""},
+                {"name": "Calf Raises on Leg Press", "sets": 3, "reps": 16, "notes": ""},
+                {"name": "Pull Ups", "sets": 3, "reps": 6, "notes": ""},
+                {"name": "Push Ups", "sets": 3, "reps": 10, "notes": ""}
+                
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name":"Chin Ups","sets":3,"reps":8,"notes":""},
+                {"name":"Close Grip Lat Pulldown","sets":3,"reps":10,"notes":""},
+                {"name":"Chest Press","sets":4,"reps":8,"notes":""},
+                {"name":"Seated Arnold Press","sets":3,"reps":12,"notes":""},
+                {"name":"Skull Crushers","sets":3,"reps":12,"notes":""},
+                {"name":"Alternating Supinating Bicep Curls","sets":3,"reps":16,"notes":""},
+                {"name":"TRX Lateral Extension","sets":4,"reps":8,"notes":""},
+                {"name":"Hanging Weighted Knee Tucks","sets":3,"reps":8,"notes":""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                { "name": "Squats - Barbell Only (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 50% (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": "" },
+                {"name":"Squats","sets":3,"reps":12,"notes":""},
+                {"name":"Kang Squat","sets":2,"reps":8,"notes":""},
+                {"name":"Contralateral Rear Foot Elevated Split Squat: Left/Right","sets":4,"reps":12,"notes":""},
+                {"name":"Romanian Deadlifts","sets":3,"reps":12,"notes":""},
+                {"name":"DB Handover Side Lunges","sets":4,"reps":16,"notes":""},
+                {"name":"Wall Ball Pulsing Squat Throw","sets":3,"reps":12,"notes":""},
+                {"name":"Externally Rotated Calf Raises on Leg Press","sets":4,"reps":16,"notes":""}
+            ]
+        }
+      ]
+    },
+    {
+        "week": 10,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                { "name": "Squats - Barbell Only (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 50% (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": "" },
+                { "name": "Squats", "sets": 3, "reps": 6, "notes": "" },
+                {"name":"Barbell Cleans","sets":3,"reps":10,"notes":""},
+                {"name":"Bench Press","sets":4,"reps":6,"notes":""},
+                {"name":"Push Press","sets":3,"reps":8,"notes":""},
+                {"name":"Alternating Jump Lunges with Plates","sets":3,"reps":16,"notes":""},
+                {"name":"Landmine Kneel to Thruster: Left/Right","sets":4,"reps":8,"notes":""}
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name":"Pull-Ups","sets":3,"reps":7,"notes":""},
+                {"name":"Dips","sets":3,"reps":6,"notes":""},
+                {"name":"Kayak Lat Pulldown","sets":3,"reps":16,"notes":""},
+                {"name":"Alternating Supinating Bicep Curls","sets":3,"reps":16,"notes":""},
+                {"name":"T-Bar Row","sets":3,"reps":12,"notes":""},
+                {"name":"Tall Kneeling Landmine Press: Left/Right","sets":4,"reps":8,"notes":""},
+                {"name":"Front Raise to Tricep Extension","sets":3,"reps":16,"notes":""},
+                {"name":"Half Kneeling Inline Lift: Left/Right","sets":4,"reps":10,"notes":""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name":"Open Leg Walking Lunges","sets":3,"reps":14,"notes":""},
+                {"name":"Front Rack Elevated Curtsey Lunge: Left/Right","sets":4,"reps":10,"notes":""},
+                {"name":"KB Figure of 8s","sets":3,"reps":"00:30","notes":""},
+                {"name":"KB Half Kang Squat","sets":3,"reps":12,"notes":""},
+                {"name":"Dual KB Deficit Deadlifts","sets":3,"reps":10,"notes":""},
+                {"name":"Glute Kickback: Left/Right","sets":6,"reps":12,"notes":""},
+                {"name":"Calf Raises on Leg Press","sets":3,"reps":16,"notes":""}
+            ]
+        }
+      ]
+    },
+    {
+        "week": 11,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                {"name": "Deadlifts: Barbell Only (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 50% (Warm-Up)", "sets": 1, "reps": 8, "notes": ""},
+                {"name": "Deadlifts: 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": ""},
+                {"name": "Deadlifts", "sets": 3, "reps": 6, "notes": ""},
+                {"name":"Pull-Ups","sets":3,"reps":[7,5,5],"notes":""},
+                {"name":"Push Ups","sets":3,"reps":[10,8,8],"notes":""},
+                {"name":"Drop Squat to Extension","sets":3,"reps":10,"notes":""},
+                {"name":"DB Snatch","sets":4,"reps":12,"notes":""},
+                {"name":"Landmine Thruster","sets":3,"reps":16,"notes":""},
+                {"name":"KB Swings","sets":3,"reps":16,"notes":""}
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name":"Lat Pulldown","sets":4,"reps":16,"notes":""},
+                {"name":"Cable Hammer Curls","sets":3,"reps":10,"notes":""},
+                {"name":"Chest Press","sets":4,"reps":14,"notes":""},
+                {"name":"Chameleons","sets":3,"reps":12,"notes":""},
+                {"name":"DB Shoulder Press","sets":3,"reps":14,"notes":""},
+                {"name":"Alternating Renegade Row","sets":3,"reps":16,"notes":""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name":"Tempo Squats","sets":3,"reps":10,"notes":""},
+                {"name":"Alternating Front Rack Reverse Lunges","sets":3,"reps":16,"notes":""},
+                {"name":"DB Handover Side Lunges","sets":3,"reps":14,"notes":""},
+                {"name":"KB Front Rack Kneel to Squat","sets":3,"reps":12,"notes":""},
+                {"name":"TRX/Ball Hamstring Curls","sets":3,"reps":10,"notes":""},
+                {"name":"RB Crab Walks","sets":3,"reps":16,"notes":""},
+                {"name":"Banded Hip Thrusts","sets":3,"reps":15,"notes":""},
+                {"name":"Hip Abduction & Adduction","sets":4,"reps":10,"notes":""}
+            ]
+        }
+      ]
+    },
+    {
+        "week": 12,
+        "workouts":[
+        {
+            "day": 1,
+            "name": "Strength & Power",
+            "exercises": [
+                { "name": "Squats - Barbell Only (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 50% (Warm-Up)", "sets": 1, "reps": 6, "notes": "" },
+                { "name": "Squats - 80% (Warm-Up)", "sets": 1, "reps": 4, "notes": "" },
+                { "name": "Squats", "sets": 4, "reps": 6, "notes": "" },
+                {"name":"Bench Press","sets":3,"reps":6,"notes":""},
+                {"name":"Pull-Ups","sets":3,"reps":6,"notes":""},
+                {"name":"Jumping Lunge Switches","sets":4,"reps":8,"notes":""}
+            ]
+        },
+        {
+            "day": 2,
+            "name": "Upper Body",
+            "exercises": [
+                {"name":"RB Half Kneeling Lat Pulldown","sets":2,"reps":18,"notes":""},
+                {"name":"Barbell Rows","sets":3,"reps":10,"notes":""},
+                {"name":"Kayak Lat Pulldown","sets":3,"reps":16,"notes":""},
+                {"name":"Chest Press","sets":3,"reps":10,"notes":""},
+                {"name":"Unilateral Incline Chest Press: Left/Right","sets":4,"reps":12,"notes":""},
+                {"name":"KB Halos","sets":3,"reps":10,"notes":""},
+                {"name": "Hanging Weighted Knee Tucks", "sets": 3, "reps": 10, "notes": ""}
+            ]
+        },
+        {
+            "day": 3,
+            "name": "Lower Body",
+            "exercises": [
+                {"name":"Step Up to Explosive Knee Drive: Left/Right","sets":4,"reps":8,"notes":""},
+                {"name":"Romanian Deadlifts","sets":3,"reps":12,"notes":""},
+                {"name":"Double KB Swings","sets":3,"reps":10,"notes":""},
+                {"name":"Tempo Leg Press","sets":3,"reps":8,"notes":""},
+                {"name":"Leg Press: Narrow Stance","sets":2,"reps":12,"notes":""},
+                {"name":"Calf Raises on Leg Press","sets":3,"reps":18,"notes":""}
+            ]
+        }
+      ]
+    }
+  ],
+  "suggestion_rules": {
+    "difficulty_scale": ["easy", "normal", "hard"],
+    "default_increment": 2.5,
+    "per_exercise_increment": {
+      "Back Squat": 5.0,
+      "Deadlift": 5.0,
+      "Bench Press": 2.5,
+      "Overhead Press": 2.5
+    },
+    "easy_add_increment": true
+  }
+}
