@@ -7,7 +7,7 @@ from kivy.uix.button import Button
 from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
-from kivy.uix.gridlayout import GridLayout
+
 from app.core.suggestions import suggest_weight
 
 
@@ -79,15 +79,28 @@ class WorkoutScreen(Screen):
         # little spacer
         self.content.add_widget(Label(text="", size_hint_y=None, height=dp(20)))
 
+    def open_history(self, exercise_name: str):
+        history_screen = self.manager.get_screen("history")
+        history_screen.show_exercise(exercise_name, return_to="workout")
+        self.manager.current = "history"
+
+    def _fmt_weight(self, w: float) -> str:
+        return str(int(w)) if float(w).is_integer() else str(w)
+
+    def _clear_set(self, rep_in: TextInput, wt_in: TextInput):
+        rep_in.text = ""
+        wt_in.text = ""
+
     def _build_exercise_card(self, exercise_name: str, target_sets, target_reps, notes: str):
-        # Auto-sizing "card"
+        # Auto-sizing card
         card = GridLayout(cols=1, padding=10, spacing=8, size_hint_y=None)
         card.bind(minimum_height=card.setter("height"))
 
-        last = self.service.get_last_exercise_summary(exercise_name)
+        # Pull last session for this exercise (all sets)
+        last_session = self.service.get_last_session_for_exercise(exercise_name)
         sug = suggest_weight(self.service, exercise_name)
 
-        # Title row with History button
+        # Title row with History button (right side)
         title_row = BoxLayout(size_hint_y=None, height=dp(40), spacing=8)
 
         title_lbl = Label(
@@ -103,16 +116,15 @@ class WorkoutScreen(Screen):
         history_btn = Button(
             text="H",
             size_hint_x=None,
-            width=dp(36),
-            font_size=dp(16),
+            width=dp(40),
+            font_size=dp(18),
             background_normal="",
-            background_color=(0.2, 0.6, 1, 0.15),
+            background_color=(0, 0, 0, 0),
         )
         history_btn.bind(on_release=lambda *_: self.open_history(exercise_name))
 
         title_row.add_widget(title_lbl)
         title_row.add_widget(history_btn)
-
         card.add_widget(title_row)
 
         # Notes
@@ -128,26 +140,30 @@ class WorkoutScreen(Screen):
             n.bind(size=lambda inst, *_: setattr(inst, "text_size", inst.size))
             card.add_widget(n)
 
-        # Last + Suggested
+        # Last time one-line: reps-weight, reps-weight, ...
         last_txt = "—"
-        last_session = self.service.get_last_session_for_exercise(exercise_name)
-        sug = suggest_weight(self.service, exercise_name)
-        if last_session and last_session["sets"]:
-            parts = [f'{s["reps"]} reps -{s["weight"]}kg' for s in last_session["sets"]]
+        last_sets = []
+        last_diff = "normal"
+
+        if last_session and last_session.get("sets"):
+            last_sets = last_session["sets"]
+            last_diff = last_session.get("difficulty", "normal")
+
+            parts = [f'{s["reps"]}-{self._fmt_weight(float(s["weight"]))}' for s in last_sets]
             last_txt = ", ".join(parts)
 
-        sug_txt = "—" if sug is None else f"{sug}"
+        sug_txt = "—" if sug is None else self._fmt_weight(float(sug))
 
         info = Label(
             text=f"Last time: {last_txt}\nSuggested: {sug_txt}",
             size_hint_y=None,
-            height=dp(58),  # keep a bit taller for long lines
+            height=dp(58),
             halign="left",
             valign="middle",
         )
         info.bind(size=lambda inst, *_: setattr(inst, "text_size", inst.size))
         card.add_widget(info)
-                
+
         # Difficulty row
         diff_row = BoxLayout(size_hint_y=None, height=dp(40), spacing=8)
         diff_row.add_widget(Label(text="Difficulty:", size_hint_x=None, width=dp(90)))
@@ -155,20 +171,20 @@ class WorkoutScreen(Screen):
         diff_row.add_widget(diff_spinner)
         card.add_widget(diff_row)
 
-        # Sets grid (AUTO-SIZING!)
+        # Sets grid (auto-sizing)
         sets_n = int(target_sets) if target_sets else 3
 
-        # default reps: if "8-10" take 8
         reps_default = ""
         if target_reps:
             reps_default = str(target_reps).split("-")[0].strip()
 
-        default_weight_str = "" if sug is None else str(sug)
+        # Smart bump: if last was easy and we have a suggestion, use suggested for all weights
+        use_suggested_for_all_weights = (last_diff == "easy" and sug is not None)
+        suggested_weight_str = "" if sug is None else self._fmt_weight(float(sug))
 
         sets_grid = GridLayout(cols=4, spacing=6, size_hint_y=None)
         sets_grid.bind(minimum_height=sets_grid.setter("height"))
 
-        # Header row
         for header in ("Set", "Reps", "Weight", ""):
             sets_grid.add_widget(Label(text=header, size_hint_y=None, height=dp(30)))
 
@@ -178,8 +194,21 @@ class WorkoutScreen(Screen):
         for i in range(1, sets_n + 1):
             sets_grid.add_widget(Label(text=str(i), size_hint_y=None, height=dp(30)))
 
-            rep_in = TextInput(text=reps_default, multiline=False, input_filter="int", size_hint_y=None, height=dp(30))
-            wt_in = TextInput(text=default_weight_str, multiline=False, input_filter="float", size_hint_y=None, height=dp(30))
+            # Prefill reps/weight
+            rep_text = reps_default
+            weight_text = suggested_weight_str if suggested_weight_str else ""
+
+            if i <= len(last_sets):
+                rep_text = str(last_sets[i - 1]["reps"])
+                if not use_suggested_for_all_weights:
+                    weight_text = self._fmt_weight(float(last_sets[i - 1]["weight"]))
+
+            # For extra sets beyond last time: keep reps_default, use suggestion if available
+            if i > len(last_sets) and suggested_weight_str:
+                weight_text = suggested_weight_str
+
+            rep_in = TextInput(text=rep_text, multiline=False, input_filter="int", size_hint_y=None, height=dp(30))
+            wt_in = TextInput(text=weight_text, multiline=False, input_filter="float", size_hint_y=None, height=dp(30))
 
             rep_inputs.append(rep_in)
             weight_inputs.append(wt_in)
@@ -204,15 +233,12 @@ class WorkoutScreen(Screen):
         )
 
         return card
-    def _clear_set(self, rep_in: TextInput, wt_in: TextInput):
-        rep_in.text = ""
-        wt_in.text = ""
 
     def save_all(self, *_):
         """
         Saves:
           - difficulty per exercise
-          - set logs where reps+weight are filled
+          - overwrites sets per exercise (no duplicates)
         """
         if self.session_id is None:
             return
@@ -228,46 +254,23 @@ class WorkoutScreen(Screen):
             self.service.set_exercise_difficulty(self.session_id, ex, diff)
             saved_exercises += 1
 
-            # Save sets that have both reps and weight filled
             rep_inputs = row["rep_inputs"]
             wt_inputs = row["weight_inputs"]
 
-            for idx, (r_in, w_in) in enumerate(zip(rep_inputs, wt_inputs), start=1):
+            reps_list = []
+            weights_list = []
+            for r_in, w_in in zip(rep_inputs, wt_inputs):
                 r_txt = (r_in.text or "").strip()
                 w_txt = (w_in.text or "").strip()
                 if not r_txt or not w_txt:
                     continue
                 try:
-                    reps = int(r_txt)
-                    weight = float(w_txt)
+                    reps_list.append(int(r_txt))
+                    weights_list.append(float(w_txt))
                 except ValueError:
                     continue
 
-                #
-                reps_list = []
-                weights_list = []
-                for r_in, w_in in zip(rep_inputs, wt_inputs):
-                    r_txt = (r_in.text or "").strip()
-                    w_txt = (w_in.text or "").strip()
-                    if not r_txt or not w_txt:
-                        continue
-                    try:
-                        reps_list.append(int(r_txt))
-                        weights_list.append(float(w_txt))
-                    except ValueError:
-                        continue
+            inserted = self.service.replace_sets_for_exercise(self.session_id, ex, reps_list, weights_list)
+            saved_sets += inserted
 
-                inserted = self.service.replace_sets_for_exercise(
-                    self.session_id, ex, reps_list, weights_list
-                )
-                saved_sets += inserted
-                #
-                # saved_sets += 1
-
-        # simple feedback in title
         self.title_lbl.text = f"Week {self.week} • Day {self.day} ✅ Saved {saved_sets} sets ({saved_exercises} exercises)"
-        
-    def open_history(self, exercise_name: str):
-        history_screen = self.manager.get_screen("history")
-        history_screen.show_exercise(exercise_name, return_to="workout")
-        self.manager.current = "history"
