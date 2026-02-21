@@ -9,7 +9,7 @@ from app.core.services import WorkoutService
 
 from app.ui.screens.home_screen import HomeScreen
 from app.ui.screens.workout_screen import WorkoutScreen
-
+from app.ui.screens.history_screen import HistoryScreen
 
 class FWorkoutApp(App):
     def build(self):
@@ -25,6 +25,7 @@ class FWorkoutApp(App):
         sm = ScreenManager()
         sm.add_widget(HomeScreen(name="home", service=service))
         sm.add_widget(WorkoutScreen(name="workout", service=service))
+        sm.add_widget(HistoryScreen(name="history", service=service))
         return sm
 
 

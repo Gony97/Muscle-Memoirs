@@ -47,6 +47,10 @@ class HomeScreen(Screen):
         root.add_widget(start_btn)
 
         self.add_widget(root)
+        
+        history_btn = Button(text="History", size_hint_y=None, height=48)
+        history_btn.bind(on_release=lambda *_: setattr(self.manager, "current", "history"))
+        root.add_widget(history_btn)
 
         # initial load
         self.refresh_workouts_for_week(1)

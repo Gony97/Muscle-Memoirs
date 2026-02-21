@@ -272,3 +272,20 @@ class WorkoutService:
                 for r in sets_rows
             ],
         }
+        
+    def list_exercise_names(self) -> list[str]:
+        """
+        Returns a sorted list of unique exercise names known to the app.
+        Includes both program template exercises and any logged exercises.
+        """
+        with connect(self.db_path) as conn:
+            rows = conn.execute(
+                """
+                SELECT exercise_name FROM program_exercise
+                UNION
+                SELECT exercise_name FROM set_log
+                ORDER BY exercise_name ASC
+                """
+            ).fetchall()
+
+        return [str(r["exercise_name"]) for r in rows]

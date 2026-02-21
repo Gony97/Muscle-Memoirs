@@ -87,17 +87,33 @@ class WorkoutScreen(Screen):
         last = self.service.get_last_exercise_summary(exercise_name)
         sug = suggest_weight(self.service, exercise_name)
 
-        # Title (allow wrapping)
-        top = Label(
+        # Title row with History button
+        title_row = BoxLayout(size_hint_y=None, height=dp(40), spacing=8)
+
+        title_lbl = Label(
             text=f"[b]{exercise_name}[/b]  ({target_sets}x{target_reps})",
             markup=True,
-            size_hint_y=None,
-            height=dp(34),
             halign="left",
             valign="middle",
+            shorten=True,
+            shorten_from="right",
         )
-        top.bind(size=lambda inst, *_: setattr(inst, "text_size", inst.size))
-        card.add_widget(top)
+        title_lbl.bind(size=lambda inst, *_: setattr(inst, "text_size", inst.size))
+
+        history_btn = Button(
+            text="H",
+            size_hint_x=None,
+            width=dp(36),
+            font_size=dp(16),
+            background_normal="",
+            background_color=(0.2, 0.6, 1, 0.15),
+        )
+        history_btn.bind(on_release=lambda *_: self.open_history(exercise_name))
+
+        title_row.add_widget(title_lbl)
+        title_row.add_widget(history_btn)
+
+        card.add_widget(title_row)
 
         # Notes
         if notes:
@@ -131,8 +147,7 @@ class WorkoutScreen(Screen):
         )
         info.bind(size=lambda inst, *_: setattr(inst, "text_size", inst.size))
         card.add_widget(info)
-        sug_txt = "—" if sug is None else f"{sug}"
-
+                
         # Difficulty row
         diff_row = BoxLayout(size_hint_y=None, height=dp(40), spacing=8)
         diff_row.add_widget(Label(text="Difficulty:", size_hint_x=None, width=dp(90)))
@@ -251,3 +266,8 @@ class WorkoutScreen(Screen):
 
         # simple feedback in title
         self.title_lbl.text = f"Week {self.week} • Day {self.day} ✅ Saved {saved_sets} sets ({saved_exercises} exercises)"
+        
+    def open_history(self, exercise_name: str):
+        history_screen = self.manager.get_screen("history")
+        history_screen.show_exercise(exercise_name, return_to="workout")
+        self.manager.current = "history"
