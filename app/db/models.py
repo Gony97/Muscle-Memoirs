@@ -6,10 +6,10 @@ class DriveAsset(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    # UNIQUE pointer key (this is what must be unique)
+    # Unique pointer per concept ("backup/latest", "folders/backups", etc.)
     logical_key = Column(String(255), unique=True, index=True, nullable=False)
 
-    # Drive file can be referenced by multiple logical keys
+    # Can repeat across keys (e.g., "backup/latest" and "backup/2026..." can point same file)
     drive_file_id = Column(String(255), nullable=False)
 
     filename = Column(String(512), nullable=False)
