@@ -7,7 +7,7 @@ from kivy.uix.button import Button
 from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
-
+from kivy.uix.gridlayout import GridLayout
 from app.core.suggestions import suggest_weight
 
 
@@ -80,18 +80,19 @@ class WorkoutScreen(Screen):
         self.content.add_widget(Label(text="", size_hint_y=None, height=dp(20)))
 
     def _build_exercise_card(self, exercise_name: str, target_sets, target_reps, notes: str):
-        card = BoxLayout(orientation="vertical", padding=10, spacing=8, size_hint_y=None)
-        card.height = dp(260)
+        # Auto-sizing "card"
+        card = GridLayout(cols=1, padding=10, spacing=8, size_hint_y=None)
+        card.bind(minimum_height=card.setter("height"))
 
         last = self.service.get_last_exercise_summary(exercise_name)
         sug = suggest_weight(self.service, exercise_name)
 
-        # Title
+        # Title (allow wrapping)
         top = Label(
             text=f"[b]{exercise_name}[/b]  ({target_sets}x{target_reps})",
             markup=True,
             size_hint_y=None,
-            height=dp(28),
+            height=dp(34),
             halign="left",
             valign="middle",
         )
@@ -100,51 +101,64 @@ class WorkoutScreen(Screen):
 
         # Notes
         if notes:
-            n = Label(text=f"[i]{notes}[/i]", markup=True, size_hint_y=None, height=dp(22), halign="left", valign="middle")
+            n = Label(
+                text=f"[i]{notes}[/i]",
+                markup=True,
+                size_hint_y=None,
+                height=dp(24),
+                halign="left",
+                valign="middle",
+            )
             n.bind(size=lambda inst, *_: setattr(inst, "text_size", inst.size))
             card.add_widget(n)
 
         # Last + Suggested
         last_txt = "—"
-        if last:
-            last_txt = f'{last["last_weight"]}  x{last["last_reps"]}  ({last["difficulty"]})'
+        last_session = self.service.get_last_session_for_exercise(exercise_name)
+        sug = suggest_weight(self.service, exercise_name)
+        if last_session and last_session["sets"]:
+            parts = [f'{s["reps"]} reps -{s["weight"]}kg' for s in last_session["sets"]]
+            last_txt = ", ".join(parts)
 
         sug_txt = "—" if sug is None else f"{sug}"
 
         info = Label(
-            text=f"Last: {last_txt}\nSuggested: {sug_txt}",
+            text=f"Last time: {last_txt}\nSuggested: {sug_txt}",
             size_hint_y=None,
-            height=dp(44),
+            height=dp(58),  # keep a bit taller for long lines
             halign="left",
             valign="middle",
         )
         info.bind(size=lambda inst, *_: setattr(inst, "text_size", inst.size))
         card.add_widget(info)
+        sug_txt = "—" if sug is None else f"{sug}"
 
-        # Difficulty spinner (per exercise)
+        # Difficulty row
         diff_row = BoxLayout(size_hint_y=None, height=dp(40), spacing=8)
         diff_row.add_widget(Label(text="Difficulty:", size_hint_x=None, width=dp(90)))
         diff_spinner = Spinner(text="normal", values=["easy", "normal", "hard"])
         diff_row.add_widget(diff_spinner)
         card.add_widget(diff_row)
 
-        # Set logging inputs: we'll log N sets rows (default target_sets)
+        # Sets grid (AUTO-SIZING!)
         sets_n = int(target_sets) if target_sets else 3
-        reps_default = str(int(target_reps)) if target_reps else ""
+
+        # default reps: if "8-10" take 8
+        reps_default = ""
+        if target_reps:
+            reps_default = str(target_reps).split("-")[0].strip()
+
+        default_weight_str = "" if sug is None else str(sug)
 
         sets_grid = GridLayout(cols=4, spacing=6, size_hint_y=None)
-        sets_grid.height = dp(40 + sets_n * 36)
+        sets_grid.bind(minimum_height=sets_grid.setter("height"))
 
-        sets_grid.add_widget(Label(text="Set", size_hint_y=None, height=dp(30)))
-        sets_grid.add_widget(Label(text="Reps", size_hint_y=None, height=dp(30)))
-        sets_grid.add_widget(Label(text="Weight", size_hint_y=None, height=dp(30)))
-        sets_grid.add_widget(Label(text="", size_hint_y=None, height=dp(30)))
+        # Header row
+        for header in ("Set", "Reps", "Weight", ""):
+            sets_grid.add_widget(Label(text=header, size_hint_y=None, height=dp(30)))
 
         rep_inputs = []
         weight_inputs = []
-
-        # prefill weight with suggestion if available, else blank
-        default_weight_str = "" if sug is None else str(sug)
 
         for i in range(1, sets_n + 1):
             sets_grid.add_widget(Label(text=str(i), size_hint_y=None, height=dp(30)))
@@ -158,7 +172,6 @@ class WorkoutScreen(Screen):
             sets_grid.add_widget(rep_in)
             sets_grid.add_widget(wt_in)
 
-            # quick clear button per set
             clr = Button(text="Clear", size_hint_y=None, height=dp(30))
             clr.bind(on_release=lambda _btn, r=rep_in, w=wt_in: self._clear_set(r, w))
             sets_grid.add_widget(clr)
@@ -176,7 +189,6 @@ class WorkoutScreen(Screen):
         )
 
         return card
-
     def _clear_set(self, rep_in: TextInput, wt_in: TextInput):
         rep_in.text = ""
         wt_in.text = ""
@@ -216,8 +228,26 @@ class WorkoutScreen(Screen):
                 except ValueError:
                     continue
 
-                self.service.log_set(self.session_id, ex, idx, reps, weight)
-                saved_sets += 1
+                #
+                reps_list = []
+                weights_list = []
+                for r_in, w_in in zip(rep_inputs, wt_inputs):
+                    r_txt = (r_in.text or "").strip()
+                    w_txt = (w_in.text or "").strip()
+                    if not r_txt or not w_txt:
+                        continue
+                    try:
+                        reps_list.append(int(r_txt))
+                        weights_list.append(float(w_txt))
+                    except ValueError:
+                        continue
+
+                inserted = self.service.replace_sets_for_exercise(
+                    self.session_id, ex, reps_list, weights_list
+                )
+                saved_sets += inserted
+                #
+                # saved_sets += 1
 
         # simple feedback in title
         self.title_lbl.text = f"Week {self.week} • Day {self.day} ✅ Saved {saved_sets} sets ({saved_exercises} exercises)"

@@ -188,3 +188,87 @@ class WorkoutService:
             ).fetchall()
 
         return [(int(r["day"]), str(r["workout_name"])) for r in rows]
+    
+    def replace_sets_for_exercise(
+        self,
+        session_id: int,
+        exercise_name: str,
+        reps_list: list[int],
+        weights_list: list[float],
+    ) -> int:
+        """
+        Overwrites all sets for (session_id, exercise_name) with the provided sets.
+        Returns number of inserted sets.
+        """
+        if len(reps_list) != len(weights_list):
+            raise ValueError("reps_list and weights_list must have same length")
+
+        with connect(self.db_path) as conn:
+            conn.execute(
+                "DELETE FROM set_log WHERE session_id = ? AND exercise_name = ?",
+                (int(session_id), str(exercise_name)),
+            )
+            inserted = 0
+            for idx, (r, w) in enumerate(zip(reps_list, weights_list), start=1):
+                conn.execute(
+                    """
+                    INSERT INTO set_log(session_id, exercise_name, set_index, reps, weight)
+                    VALUES (?, ?, ?, ?, ?)
+                    """,
+                    (int(session_id), str(exercise_name), int(idx), int(r), float(w)),
+                )
+                inserted += 1
+            conn.commit()
+        return inserted
+    
+    def get_last_session_for_exercise(self, exercise_name: str) -> dict | None:
+        """
+        Returns the most recent session for this exercise, including all sets in that session.
+
+        {
+          "started_at": str,
+          "difficulty": "easy|normal|hard",
+          "sets": [{"set_index": int, "reps": int, "weight": float}, ...]
+        }
+        """
+        with connect(self.db_path) as conn:
+            # 1) find last session_id for this exercise
+            row = conn.execute(
+                """
+                SELECT s.id AS session_id, s.started_at,
+                       COALESCE(el.difficulty, 'normal') AS difficulty
+                FROM session s
+                JOIN set_log sl ON sl.session_id = s.id
+                LEFT JOIN exercise_log el
+                  ON el.session_id = s.id AND el.exercise_name = sl.exercise_name
+                WHERE sl.exercise_name = ?
+                ORDER BY s.started_at DESC
+                LIMIT 1
+                """,
+                (exercise_name,),
+            ).fetchone()
+
+            if row is None:
+                return None
+
+            session_id = int(row["session_id"])
+
+            # 2) fetch all sets for that session + exercise
+            sets_rows = conn.execute(
+                """
+                SELECT set_index, reps, weight
+                FROM set_log
+                WHERE session_id = ? AND exercise_name = ?
+                ORDER BY set_index ASC
+                """,
+                (session_id, exercise_name),
+            ).fetchall()
+
+        return {
+            "started_at": str(row["started_at"]),
+            "difficulty": str(row["difficulty"]),
+            "sets": [
+                {"set_index": int(r["set_index"]), "reps": int(r["reps"]), "weight": float(r["weight"])}
+                for r in sets_rows
+            ],
+        }
