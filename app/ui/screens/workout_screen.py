@@ -60,9 +60,8 @@ class WorkoutScreen(Screen):
     def load_workout(self, week: int, day: int):
         self.week = week
         self.day = day
-        self.session_id = self.service.start_session(week, day)
-
-        self.title_lbl.text = f"Week {week} • Day {day} (session {self.session_id})"
+        self.session_id = None
+        self.title_lbl.text = f"Week {week} • Day {day}"
 
         self.content.clear_widgets()
         self.exercise_rows.clear()
@@ -237,28 +236,23 @@ class WorkoutScreen(Screen):
     def save_all(self, *_):
         """
         Saves:
-          - difficulty per exercise
-          - overwrites sets per exercise (no duplicates)
+        - difficulty per exercise
+        - overwrites sets per exercise (no duplicates)
+        Creates a session ONLY if at least one valid set is filled.
         """
-        if self.session_id is None:
-            return
-
-        saved_sets = 0
-        saved_exercises = 0
+        # 1) First pass: gather all valid sets per exercise
+        payload = []  # list of (exercise_name, difficulty, reps_list, weights_list)
+        total_sets = 0
 
         for row in self.exercise_rows:
             ex = row["exercise_name"]
             diff = row["difficulty_spinner"].text
-
-            # Save difficulty (always)
-            self.service.set_exercise_difficulty(self.session_id, ex, diff)
-            saved_exercises += 1
-
             rep_inputs = row["rep_inputs"]
             wt_inputs = row["weight_inputs"]
 
             reps_list = []
             weights_list = []
+
             for r_in, w_in in zip(rep_inputs, wt_inputs):
                 r_txt = (r_in.text or "").strip()
                 w_txt = (w_in.text or "").strip()
@@ -270,7 +264,32 @@ class WorkoutScreen(Screen):
                 except ValueError:
                     continue
 
+            total_sets += len(reps_list)
+            payload.append((ex, diff, reps_list, weights_list))
+
+        # 2) If no sets were entered, don't create a session
+        if total_sets == 0:
+            self.title_lbl.text = f"Week {self.week} • Day {self.day} — nothing to save"
+            return
+
+        # 3) Create session only now (first save)
+        if self.session_id is None:
+            self.session_id = self.service.start_session(self.week, self.day)
+
+        # 4) Save to DB
+        saved_sets = 0
+        saved_exercises = 0
+
+        for ex, diff, reps_list, weights_list in payload:
+            # Save difficulty always (per exercise)
+            self.service.set_exercise_difficulty(self.session_id, ex, diff)
+            saved_exercises += 1
+
+            # Overwrite sets for this exercise (no duplicates)
             inserted = self.service.replace_sets_for_exercise(self.session_id, ex, reps_list, weights_list)
             saved_sets += inserted
 
-        self.title_lbl.text = f"Week {self.week} • Day {self.day} ✅ Saved {saved_sets} sets ({saved_exercises} exercises)"
+        self.title_lbl.text = (
+            f"Week {self.week} • Day {self.day} (session {self.session_id}) "
+            f"✅ Saved {saved_sets} sets ({saved_exercises} exercises)"
+        )
