@@ -7,7 +7,7 @@ from kivy.uix.button import Button
 from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.metrics import dp
-
+from kivy.uix.popup import Popup
 from app.core.suggestions import suggest_weight
 
 
@@ -85,6 +85,19 @@ class WorkoutScreen(Screen):
 
     def _fmt_weight(self, w: float) -> str:
         return str(int(w)) if float(w).is_integer() else str(w)
+    
+    def _show_error_popup(self, title: str, lines: list[str]):
+        text = "\n".join(lines) if lines else ""
+        content = Label(text=text, halign="left", valign="top")
+        content.bind(size=lambda inst, *_: setattr(inst, "text_size", inst.size))
+
+        popup = Popup(
+            title=title,
+            content=content,
+            size_hint=(0.9, 0.7),
+            auto_dismiss=True,
+        )
+        popup.open()
 
     def _clear_set(self, rep_in: TextInput, wt_in: TextInput):
         rep_in.text = ""
@@ -235,14 +248,14 @@ class WorkoutScreen(Screen):
 
     def save_all(self, *_):
         """
-        Saves:
-        - difficulty per exercise
+        Validated save:
+        - creates a session ONLY if at least one valid set exists
+        - reports invalid entries clearly
         - overwrites sets per exercise (no duplicates)
-        Creates a session ONLY if at least one valid set is filled.
         """
-        # 1) First pass: gather all valid sets per exercise
         payload = []  # list of (exercise_name, difficulty, reps_list, weights_list)
         total_sets = 0
+        errors = []
 
         for row in self.exercise_rows:
             ex = row["exercise_name"]
@@ -253,39 +266,72 @@ class WorkoutScreen(Screen):
             reps_list = []
             weights_list = []
 
-            for r_in, w_in in zip(rep_inputs, wt_inputs):
+            for set_i, (r_in, w_in) in enumerate(zip(rep_inputs, wt_inputs), start=1):
                 r_txt = (r_in.text or "").strip()
                 w_txt = (w_in.text or "").strip()
-                if not r_txt or not w_txt:
+
+                # Both empty -> skip
+                if not r_txt and not w_txt:
                     continue
+
+                # One missing -> error
+                if r_txt and not w_txt:
+                    errors.append(f"{ex} — set {set_i}: reps entered but weight missing")
+                    continue
+                if w_txt and not r_txt:
+                    errors.append(f"{ex} — set {set_i}: weight entered but reps missing")
+                    continue
+
+                # Both present -> must parse
                 try:
-                    reps_list.append(int(r_txt))
-                    weights_list.append(float(w_txt))
+                    reps = int(r_txt)
                 except ValueError:
+                    errors.append(f"{ex} — set {set_i}: reps '{r_txt}' is not an integer")
                     continue
+
+                try:
+                    weight = float(w_txt)
+                except ValueError:
+                    errors.append(f"{ex} — set {set_i}: weight '{w_txt}' is not a number")
+                    continue
+
+                # Basic sanity (optional)
+                if reps <= 0:
+                    errors.append(f"{ex} — set {set_i}: reps must be > 0")
+                    continue
+                if weight < 0:
+                    errors.append(f"{ex} — set {set_i}: weight must be >= 0")
+                    continue
+
+                reps_list.append(reps)
+                weights_list.append(weight)
 
             total_sets += len(reps_list)
             payload.append((ex, diff, reps_list, weights_list))
 
-        # 2) If no sets were entered, don't create a session
+        # If nothing valid to save, don't create a session
         if total_sets == 0:
             self.title_lbl.text = f"Week {self.week} • Day {self.day} — nothing to save"
+            if errors:
+                # show the first ~15 errors to avoid huge popup
+                self._show_error_popup("Fix these entries", errors[:15] + (["..."] if len(errors) > 15 else []))
             return
 
-        # 3) Create session only now (first save)
+        # Show warnings/errors (but still save valid sets)
+        if errors:
+            self._show_error_popup("Some sets were skipped", errors[:15] + (["..."] if len(errors) > 15 else []))
+
+        # Create session only now
         if self.session_id is None:
             self.session_id = self.service.start_session(self.week, self.day)
 
-        # 4) Save to DB
         saved_sets = 0
         saved_exercises = 0
 
         for ex, diff, reps_list, weights_list in payload:
-            # Save difficulty always (per exercise)
             self.service.set_exercise_difficulty(self.session_id, ex, diff)
             saved_exercises += 1
 
-            # Overwrite sets for this exercise (no duplicates)
             inserted = self.service.replace_sets_for_exercise(self.session_id, ex, reps_list, weights_list)
             saved_sets += inserted
 
